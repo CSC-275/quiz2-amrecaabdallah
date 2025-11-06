@@ -1,51 +1,66 @@
 #include <iostream>
+#include <iomanip>
 #include <cmath>
 using namespace std;
 
 class Circle {
-private:
-    double m_radius;
 protected:
     double m_area;
-    void calcArea(double radius) {
+    double m_area;
+    void calcArea() {
         m_area = M_PI * radius * radius;
     }
 public:
-    Circle() {
-        m_area = M_PI;
-        m_radius = M_PI;
+    Circle() : m_area(0), m_area(0) {}
+    Circle(double radius) : m_radius (radius) {
+        calcArea();
     }
-    Circle(double radius) {
-        m_radius = radius;
-        calcArea(radius);
+
+    virtual void display() const {
+        cout << fixed << setprecision(2);
+        cout << "The ares of a circle with...\n";
+        cout << "a radius of " << m_radius << "inches\n";
+        cout << "has a area of " << m_area << "square inches\n\n";
     }
+    double getArea() const {return m_area;}
+    double getRadius() const {return m_radius;}
 };
 class Cylinder : public Circle {
 private:
     double m_height;
     double m_volume;
-    double calcVolume(double radius, double height) {
-        return M_PI * radius * radius * height;
+
+    void calcVolume() {
+        m_volume = m_area * m_height;
     }
+
 public:
     Cylinder(double radius, double height) {
         :Circle(radius), m_height(height) {
-        m_volume = calcVolume(m_radius, m_height);
-}
+        calcVolume();
+    }
 
-void display() override {
-    cout << "Cylinder circular and area: " << m_volume << endl;
-    cout << "Cylinder volume:" << m_volume << endl;
+void display() const override {
+    cout << fixed << setprecision(2);
+    cout << "And the volume of a Cylinder with...\n";
+    cout << "a circular end area of " << m_area << "square inches\n";
+    cout << "and a height of " << m_height << " inches\n";
+    cout << "has a volume of " << m_volume << "cubic inches\n";
     }
 };
 
 int main() {
-    Circle c1, c2(5.25);
+    Circle c1(1.00)
     c1.display();
-    c2.display();
-    Circle *cl1 = new Cylinder(3.5,8.65);
-    cl1->display();
 
-    delete c11;
+    Circle c2(5.25);
+    c2.display();
+
+    circle c3(3.50);
+    c3.display();
+
+    Cylinder cyl(3.50, 8.65);
+    cyl.display();
+
     return 0;
 }
